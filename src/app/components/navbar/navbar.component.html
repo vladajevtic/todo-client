@@ -1,0 +1,130 @@
+<!-- <nav class="navbar-expand d-flex flex-row">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Navbar</a>
+     
+      <div class="navbar" id="navbarSupportedContent">
+        <ul class="navbar-nav d-flex flex-row justify-content-between w-100">
+          <li 
+          *ngIf = "!isLogin"
+          class="nav-item">
+            <a 
+            [routerLink] = "['/login']"
+            class="nav-link active" >login</a>
+          </li>
+          <li 
+          *ngIf = "!isLogin"
+          class="nav-item">
+            <a 
+            [routerLink] = "['/register']"
+            class="nav-link">register</a>
+          </li>
+          <li
+          *ngIf = "isLogin"
+          class="nav-item">
+            <a 
+            [routerLink] = "['/user']"
+            class="nav-link">user</a>
+          </li>
+          <li 
+          *ngIf = "isLogin"
+          class="nav-item">
+            <a 
+            [routerLink] = "['/todos']"
+            class="nav-link">Todos</a>
+          </li>
+
+          <button 
+          *ngIf = "isLogin"
+          class="btn btn-outline-primary"
+          (click) = "onCreate()"
+          >Create
+        </button>
+        <button 
+        *ngIf = "isLogin"
+        class="btn btn-outline-danger"
+        (click) = "logOut()"
+        >LogOut
+      </button>
+        </ul>
+      </div>
+    </div>
+  </nav> -->
+
+  <div class="d-flex">
+    <mat-toolbar color = 'primary'>
+      <span>Todo</span>
+      <span class="spacer"></span>  
+
+      <div *ngIf= "!user">
+
+        <button
+          routerLinkActive='active'
+          [routerLinkActiveOptions]="{ exact: true }"
+          color = 'accent'
+          [routerLink] = "['/login']"
+          mat-button
+        >
+            <mat-icon>
+              login
+            </mat-icon>
+        </button>
+
+        <button
+          routerLinkActive='active'
+          [routerLinkActiveOptions]="{ exact: true }"
+          color = 'accent'
+          [routerLink] = "['/register']"
+          mat-button
+        >
+          register
+        </button>
+
+      </div>
+
+      <div *ngIf= "user">
+
+        <button
+          (click)='onLogout()'
+          mat-icon-button
+        >
+            <mat-icon>
+              logout
+            </mat-icon>
+        </button>
+
+      <img
+      [matMenuTriggerFor]='drop'
+      class="sprite ml-2"
+      [src]="!user.avatar ? 'https://avatars.dicebear.com/api/adventurer-neutral/' + user.name + '.svg' : user.avatar" alt="">
+
+      </div>
+
+    </mat-toolbar>
+  </div>
+
+  <mat-menu #drop= "matMenu">
+    <button
+      [routerLink]="['/create']"
+      mat-menu-item
+    >
+      <mat-icon>add</mat-icon>
+      <span>Create a Todo</span>
+    </button>
+
+    <button
+      [routerLink]="['/todos']"
+      mat-menu-item
+    >
+      <mat-icon>fact_check</mat-icon>
+      <span>My todo</span>
+    </button>
+
+    <button
+      [routerLink]="['/user']"
+      mat-menu-item
+    >
+      <mat-icon>account_circle</mat-icon>
+      <span> {{user?.name}}'s Profile</span>
+    </button>
+
+  </mat-menu>

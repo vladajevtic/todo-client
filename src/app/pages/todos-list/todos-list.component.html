@@ -1,0 +1,66 @@
+<!-- <div *ngIf = "allTodos">
+    <div *ngIf = "allTodos!.length > 0; else emptyTodo">
+        <div *ngFor="let todo of allTodos">
+            <h3>{{ todo.name }}</h3>
+            <p>{{ todo.description }}</p>
+        </div>
+    </div>
+</div>
+
+<ng-template #emptyTodo>
+    <div>No Stuff to do</div>
+</ng-template> -->
+<div *ngIf='activeTodos && completedTodos; else loadingTemplate'>
+    <div class="row">
+        <div class="col-6">
+            <h2>Active todos</h2>
+            <ul 
+            class="list-group"
+            *ngIf='activeTodos.length > 0; else emptyActiveTodo'>
+                <li
+                class="list-group-item py-3"
+                *ngFor='let todo of activeTodos'>
+                    <mat-checkbox
+                    (change)='onComplete(todo)'>
+                        <span class="fw-bold mr-1">{{ todo.name }}</span>
+                        <span class="font-monospace">({{ todo.description} })</span>
+                    </mat-checkbox>
+                </li>
+            </ul>
+        </div>
+        <div class="col-6">
+            <h2>Completed todos</h2>
+            <ul
+            class="list-group"
+            *ngIf="completedTodos.length > 0; else emptyCompletedTodos">
+                <li
+                *ngFor='let todo of completedTodos'
+                class="list-group-item py-3"
+                >
+                    <del>
+                        <span class="fw-bold mr-1">{{ todo.name }}</span>
+                        <span class="font-monospace">({{ todo.description }})</span>
+                    </del>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<ng-template #loadingTemplate>
+    loading...
+</ng-template>
+<ng-template #emptyActiveTodo>
+    you have no todos
+    <div class="mt-2">
+        <button
+        mat-raised-button
+        color="primary"
+        [routerLink]="['/create']">
+        Create more?
+    </button>
+    </div>
+</ng-template>
+<ng-template #emptyCompletedTodos>
+    you have no completed todos
+</ng-template>
